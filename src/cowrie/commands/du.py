@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import os
+import random
 
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import A_NAME
@@ -83,7 +84,11 @@ or available locally via: info '(coreutils) du invocation'\n"""
         args = self.args
         if args:
             if "-sh" == args[0]:
-                self.write("28K     .\n")
+                units = ['K', 'M', 'G']
+                size = str(random.randint(1, 2048))  # Random number between 1 and 2048
+                unit = random.choice(units)  # Randomly choose a unit (K, M, G)
+                size_string = size + unit
+                self.write(size_string + "     .\n")
             elif "--help" == args[0]:
                 self.write(self.message_help())
             else:
